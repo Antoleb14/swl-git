@@ -33,7 +33,7 @@
         </section>
         <section>
             <section>
-                <h4 class="title">Un peu d’histoire, qu’est-ce que GIT ?</h4>
+                <h3 class="title">Un peu d’histoire, qu’est-ce que GIT ?</h3>
                 <ul>
                     <li class="fragment">Outil de versioning et gestion du code</li>
                     <li class="fragment">Leader mondial</li>
@@ -49,7 +49,7 @@
         </section>
         <section>
             <section>
-                <h4 class="title">Le versioning avec GIT</h4>
+                <h3 class="title">Le versioning avec GIT</h3>
                 <div>
                     <p class="fragment">Historique des modifications</p>
                     <p class="fragment">Fusion de code, dit « merge »</p>
@@ -62,25 +62,32 @@
         </section>
         <section>
             <section>
-                <h4 class="title">Let's Git started!</h4>
+                <h3 class="title">Let's Git started!</h3>
                 <img src="https://media.giphy.com/media/CjmvTCZf2U3p09Cn0h/giphy.gif" class="no-border">
             </section>
         </section>
         <section>
             <section>
+                <h3>Pour faire simple</h3>
                 <ul>
                     <li>Utilisation d'une base objet locale, le dossier <b>.git</b></li>
                     <li class="fragment">Git suit les changements de contenu, pas le fichier entier</li>
                     <li class="fragment">Chaque enregistrement de modification est un <b>commit</b></li>
-                    <li class="fragment">L'ensemble des commits forme contient tout le code de l'application</li>
+                    <li class="fragment">Tous les commits forment le code entier du projet</li>
                 </ul>
+            </section>
+            <section>
+                <p>Git est révolutionnaire dans sa méthode de gestion des changements</p>
+                <p class="fragment">Il ne gère que des instantanés d'une version...</p>
+                <p class="fragment">Ainsi si un fichier n'a pas changé, il fait une référence vers le fichier original</p>
+                <p class="fragment">Et le tout en local sur votre poste, fini la latence!</p>
             </section>
             <section>
                 <p>GIT gère 3 états pour un fichier :</p>
                 <ul class="small">
                     <li class="fragment">Modifié => Le fichier est modifié mais non validé dans la base locale</li>
                     <li class="fragment">Indexé => Le fichier modifié sera enregistré dans la base locale</li>
-                    <li class="fragment">Validé => Les données sont enregistrées dans la base locale</li>
+                    <li class="fragment">Validé (Commité) => Les données sont enregistrées dans la base locale</li>
                 </ul>
             </section>
             <section>
@@ -88,37 +95,181 @@
                 <img src="img/git-dir.png" alt="" class="no-border">
             </section>
             <section>
+                <p>Pour indexer un fichier et créer un commit</p>
+                <pre>
+                    <code class="bash" data-trim>
+                        # On ajoute le fichier à la zone de "staging" / d'index
+                        git add fichier.txt
+
+                        # On créer le commit qui sera enregistré en base locale
+                        git commit -m 'mon nom de commit'
+                    </code>
+                </pre>
+                <p class="fragment">Seul <b>fichier.txt</b> a été modifié, les autres fichiers ne sont que des références vers les commits précédents (cf. parents)</p>
+            </section>
+            <section>
                 <p>Au final, avec plusieurs commit enregistrés, notre <b>arbre</b> projet ressemblera à ça :</p>
                 <pre>
                     <code class="bash" data-trim>
-                        * Commit 3
+                        * mon nom de commit
                         * Commit 2
                         * Commit 1
                         * Init project
                     </code>
                 </pre>
-                <small class="fragment">Le commit 3 contiendra aussi le code des commits précédents : 2, 1 et init project</small>
+                <small class="fragment">Le dernier commit contiendra une référence vers le commit précédent, lui-même vers son parent etc...</small>
                 <br>
                 <small class="fragment">Chaque nouvelle modification validée (donc commitée) s'ajoutera à la liste en haut de l'arbre git.</small>
             </section>
         </section>
         <section>
             <section>
-                <h4 class="title">Les branches</h4>
+                <h3 class="title">Les branches</h3>
             </section>
             <section>
                 <p>Tout arbre a des branches, alors pour git c'est pareil !</p>
                 <img src="img/branches.svg" class="fragment no-border" alt="">
             </section>
+            <section>
+                <p>Une branche n'est qu'un pointeur vers un commit</p>
+                <p class="fragment">La branche principale de Git se nomme <b>master</b></p>
+                <p class="fragment">Chaque commit sur la branche master fait avancer le pointeur d'un commit</p>
+            </section>
+            <section>
+                <p>Pour créer une nouvelle branche <b>testing</b></p>
+                <pre>
+                    <code data-trim class="bash">
+                        git branch testing
+                    </code>
+                </pre>
+                <p class="small">Un nouveau pointeur vers le commit où nous sommes va être créé</p>
+                <img src="img/branch-1.png" class="no-border" alt="">
+            </section>
+            <section>
+                <h3 class="title">Comment Git sait-il où nous sommes actuellement?</h3>
+                <img src="img/branch-2.png" class="no-border" alt="">
+                <p class="small">Grâce au pointeur HEAD qui indique notre position, on remarque que créer une branche ne nous bascule pas automatiquement dessus</p>
+            </section>
+            <section>
+                <p>Basculer sur notre branche fraichement créée</p>
+                <pre>
+                    <code class="bash" data-trim>
+                        git checkout testing
+                    </code>
+                </pre>
+                <p class="small">On peut aussi créer une branche et basculer directement dessus avec une commande similaire</p>
+                <pre>
+                    <code class="bash" data-trim>
+                        # Créer une branche et basculer dessus
+                        git branch testing
+                        git checkout testing
+
+                        # Commande simplifiée
+                        git checkout -b testing
+                    </code>
+                </pre>
+            </section>
         </section>
         <section>
             <section>
-                <h4 class="title">Repository</h4>
+                <h3 class="title">La fusion</h3>
+                <img src="https://media.giphy.com/media/e4wU8Tq30oD28/giphy.gif" class="no-border" alt="">
+            </section>
+            <section>
+                <p>Il existe 2 types de fusions, <b>fast-forward</b> et <b>three-way merge</b></p>
+                <p class="fragment">Git choisit automatiquement quel type de fusion adopter</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3 class="title">Fast-Forward Merge</h3>
+                <pre>
+                    <code class="bash" data-trim>
+                        * commit 4 (HEAD -> hotfix)
+                        * commit 3
+                        * commit 2 (master)
+                        * commit 1
+                    </code>
+                </pre>
+                <p class="small">Nous avons créé 2 commits au dessus de <b>master</b> sur la branche <b>hotfix</b></p>
+            </section>
+            <section>
+                <p>Ici le principe est simple, en <b>fast-forward</b> le pointeur de master sera remonté directement au niveau de <b>hotfix</b> (une avance rapide donc)</p>
+            </section>
+            <section>
+                <pre>
+                    <code class="bash" data-trim>
+                        git checkout master
+                        git merge hotfix # la commande de merge de hotfix sur master
+                    </code>
+                </pre>
+                <p class="small">Nous aurons donc pour résultat</p>
+                <pre>
+                    <code class="bash" data-trim>
+                        * commit 4 (HEAD -> master, hotfix)
+                        * commit 3
+                        * commit 2
+                        * commit 1
+                    </code>
+                </pre>
+                <p>On peut maintenant supprimer la branche <b>hotfix</b> avec la commande <b>git branch -d hotfix</b></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3 class="title">Three-Way Merge</h3>
+                <p class="small">Fusion à 3 sources</p>
+            </section>
+            <section>
+                <p class="small">Lorsque j'ajoute commit sur <b>master</b>, puis un commit sur <b>testing</b>, puis un nouveau commit sur master, je créé une "divergence".</p>
+                <img src="img/fusion-1.png" class="no-border" alt="">
+            </section>
+            <section>
+                <p>Pour fusionner <b>testing</b> sur <b>master</b>, git va utiliser 3 sources</p>
+                <ul class="small">
+                    <li class="fragment"><b>c2b9e</b> => master</li>
+                    <li class="fragment"><b>87ab2</b> => testing</li>
+                    <li class="fragment"><b>f30ab</b> => leur ancêtre commun le plus proche</li>
+                </ul>
+                <div class="fragment">
+                    <p class="small">Un commit de fusion qui résulte de la fusion à 3 sources est créé.
+                        <br>Ce commit est spécial car il possède plus d'un parent.</p>
+                    <pre>
+                    <code class="bash" data-trim>
+                        * 1337c # Commit de fusion
+                        |\
+                        * | c2b9e (master)
+                        | * 87ab2 (testing)
+                        |/
+                        * f30ab
+                    </code>
+                </pre>
+                </div>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3 class="title">Les conflits de fusion</h3>
+                <p class="small">Ce qui se passe dans la vraie vie</p>
+                <img src="https://media.giphy.com/media/cFkiFMDg3iFoI/giphy.gif" class="no-border" alt="">
+            </section>
+            <section>
+                <p>Dans la réalité, la fusion à 3 sources peut échouer quand au moins 2 des 3 sources ont des modifications communes.</p>
+                <img src="img/merge-conflict.png" class="no-border" alt="">
+                <p class="small">Pour résoudre un conflit, on utilise un <b>mergetool</b> (ou celui fourni directement par un IDE)</p>
+            </section>
+            <section>
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3 class="title">Repository</h3>
                 GIT est un système distribué, il est donc utilisable en local et les modifications peuvent être publiées sur un serveur distant.
                 <p class="fragment">On nomme souvent le repo distant <b>origin</b></p>
             </section>
             <section>
-                <h4 class="title">Initialiser un projet GIT from scratch</h4>
+                <h3 class="title">Initialiser un projet GIT from scratch</h3>
                 <pre>
                     <code class="bash" data-trim data-noescape>
                         git init
@@ -137,7 +288,7 @@
 
             </section>
             <section>
-                <h4 class="title">Initialiser un projet GIT depuis un repo distant</h4>
+                <h3 class="title">Initialiser un projet GIT depuis un repo distant</h3>
                 <pre>
                     <code class="bash" data-trim data-noescape>
                         git clone https://github.com/username/monprojet mondossier
@@ -147,10 +298,23 @@
                     La commande va récupérer le projet du repository distant et l'enregistrer sur l'ordinateur du client dans le dossier "mondossier"
                 </p>
             </section>
+            <section>
+                <h3 class="title">Publier son code sur le repository distant</h3>
+                <pre>
+                    <code class="bash" data-trim data-noescape>
+                        git push origin branche
+                    </code>
+                </pre>
+                <p class="small fragment">
+                    Késako cette commande ?
+                    <br>
+                    Sémantiquement cela veut dire : on <b>pousse</b> sur <b>origin</b> la <b>branche</b> voulue.
+                </p>
+            </section>
         </section>
         <section>
             <section>
-                <h4 class="title">Les commits</h4>
+                <h3 class="title">Les commits</h3>
                 <p>Un commit est morceau du code de l'application</p>
             </section>
             <section>
@@ -173,6 +337,10 @@
                 </pre>
                 <small>Le commit "Message de commit" est créé sur le repository local avec un nouveau hash unique</small>
             </section>
+        </section>
+        <section>
+            <h3 class="title">PDF sur le fonctionnement de GIT par Scott Chacon</h3>
+            <a href="https://geekographie.maieul.net/IMG/pdf/progit.fr.pdf">Dispo ici !</a>
         </section>
     </div>
 </div>
@@ -304,7 +472,8 @@
 		parallaxBackgroundHorizontal: null,
 		parallaxBackgroundVertical: null,
 		// The display mode that will be used to show slides
-		display: 'block'
+		display: 'block',
+		pdfSeparateFragments: false,
 	});
 </script>
 </body>

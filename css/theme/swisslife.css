@@ -22,7 +22,7 @@ body {
 
 .reveal {
   font-family: "Source Sans Pro", Helvetica, sans-serif;
-  font-size: 42px;
+  font-size: 34px;
   font-weight: normal;
   color: #222; }
 
@@ -290,5 +290,5 @@ body {
 
 
 .reveal .small {
-  font-size: 0.6em;
+  font-size: 0.8em;
 }
