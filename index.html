@@ -425,18 +425,121 @@
                 <img src="img/rebase-4.png" class="no-border" alt="">
             </section>
             <section>
-                <h4>Rebase intéractif</h4>
+                <h4 class="title">Rebase intéractif</h4>
                 <p>Le rebase interactif est un outil puissant pour vous mettre de modifier l'historique des commits</p>
-                <p>Vous pourrez réaliser sur chaque commit une de ces opérations :</p>
+                <pre>
+                    <code class="bash" data-trim>
+                        git rebase -i HEAD~3 # en nombre depuis la HEAD
+                        git rebase -i b48f56d # en commit depuis la HEAD
+                    </code>
+                </pre>
+                <pre class="fragment">
+                    <code class="bash" data-trim>
+                        pick d74d2be merge & conflict
+                        pick f1ff3bd repository
+                        pick b48f56d rebasing
+
+                        # Rebasage de 2bda618..b48f56d sur 2bda618 (3 commandes)
+                        #
+                        # Commandes :
+                        #  p, pick = utiliser le commit
+                        #  r, reword = utiliser le commit, mais reformuler son message
+                        #  e, edit = utiliser le commit, mais s'arrêter pour le modifier
+                        #  s, squash = utiliser le commit, mais le fusionner avec le précédent
+                        #  f, fixup = comme "squash", mais en éliminant son message
+                        #  x, exec = lancer la commande (reste de la ligne) dans un shell
+                        #  d, drop = supprimer le commit
+
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>A noter : Il est possible aussi de faire de l'ajout interactif avec <br> <b>git add -i</b></p>
+            </section>
+            <section>
+                <h4 class="title">Du coup rebase ou merge ?</h4>
+                <blockquote class="fragment">Un grand pouvoir implique de grandes responsabilités</blockquote>
+                <p class="fragment">Le rebase est <b>indispensable</b> en local</p>
+                <p class="fragment">Le rebase peut être dangereux mal utilisé avec des repo distants</p>
+                <p class="fragment">Deux points de vue s'opposent :</p>
                 <ul>
-                    <li>Renommer un commit</li>
+                    <li class="fragment small">L'historique doit refléter ce qu'il s'est réellement passé</li>
+                    <li class="fragment small">L'historique doit refléter la façon dont le projet est construit</li>
                 </ul>
             </section>
         </section>
         <section>
-            <h3 class="title">PDF sur le fonctionnement de GIT par Scott Chacon</h3>
+            <section>
+                <h4 class="title">Les TAGS</h4>
+                <img src="https://media.giphy.com/media/CDZwopbecAbIc/giphy.gif" alt="" class="no-border">
+            </section>
+            <section>
+                <p>Pour gérer ses mises en production, il est utile de créer et identifier une version d'un instantané git</p>
+                <p class="fragment">On utilise pour cela les tag</p>
+            </section>
+            <section>
+                <p class="big">
+                    <span class="fragment fade-in highlight-red" data-fragment-index="1">1</span>.<span class="fragment fade-in highlight-blue" data-fragment-index="2">0</span>.<span class="fragment fade-in highlight-green" data-fragment-index="3">3</span>-<span class="fragment fade-in highlight-yellow" data-fragment-index="4">beta</span>
+                </p>
+                <p class="small fragment" data-fragment-index="1"><span class="highlight-red">Major version</span></p>
+                <p class="small fragment" data-fragment-index="2"><span class="highlight-blue">Minor version</span></p>
+                <p class="small fragment" data-fragment-index="3"><span class="highlight-green">Patch version</span></p>
+                <p class="small fragment" data-fragment-index="4"><span class="highlight-yellow">Stage</span></p>
+            </section>
+            <section>
+                <h4 class="title">Et sur git ?</h4>
+                <p>Git insère un pointeur léger sur un commit, différent d'une branche</p>
+                <p class="small">(les tags sont identifiés sous git dans les refs/tags)</p>
+                <pre>
+                    <code data-trim class="bash">
+                        git tag 1.0.3-beta
+                        git push origin --tags # on pousse uniquement les tags sur origin
+                        git tag --delete 1.0.3-beta # on supprime notre tag en local
+                        git push origin --delete 1.0.3-beta # suppression du tag sur le repo distant
+                    </code>
+                </pre>
+                <p>Il est possible de checkout sur un tag, il sert à identifier un commit autrement que par son hash</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h4 class="title">Le remisage (ou stash)</h4>
+                <img src="https://thumbs.gfycat.com/SlimEarnestAlaskanhusky-max-1mb.gif" class="no-border" alt="">
+            </section>
+            <section>
+                <p>Avec le remisage vous pouvez mettre de côté du travail non commité afin d'effectuer des opérations</p>
+                <pre>
+                    <code class="bash" data-trim>
+                        git stash # effectue un remisage
+                        git stash list # affiche la liste des remisages
+                        git stash apply stash@{0} # restaure le remisage N de la liste
+                        git stash pop # restaure le dernier remisage
+                        git stash drop # supprime le dernier remisage
+
+                    </code>
+                </pre>
+                <p>Les remisages se stockent dans git comme une pile LIFO</p>
+                <p class="small fragment">De nombreuses fonctions sont disponibles avec stash, plus d'infos sur la <a
+                        href="https://git-scm.com/book/fr/v2/Utilitaires-Git-Remisage-et-nettoyage" target="_blank">documentation</a></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3 class="title">Boite à outils GIT</h3>
+                <p>Les petits trucs pratiques</p>
+                <img src="https://media.giphy.com/media/l4Jz3a8jO92crUlWM/giphy.gif" alt="" class="no-border">
+            </section>
+            <section>
+                <h4 class="title">GITK</h4>
+                <p class="small">Afficher l'historique git en interface graphique</p>
+
+            </section>
+        </section>
+        <section>
+            <h4 class="title">PDF sur le fonctionnement de GIT par Scott Chacon</h4>
             <a href="https://geekographie.maieul.net/IMG/pdf/progit.fr.pdf">Dispo ici !</a>
         </section>
+
     </div>
 </div>
 

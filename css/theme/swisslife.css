@@ -292,3 +292,7 @@ body {
 .reveal .small {
   font-size: 0.8em;
 }
+
+.reveal .big {
+  font-size: 1.3em;
+}

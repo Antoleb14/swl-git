@@ -128,18 +128,23 @@ body {
 .reveal .slides section .fragment.highlight-green,
 .reveal .slides section .fragment.highlight-current-green,
 .reveal .slides section .fragment.highlight-blue,
-.reveal .slides section .fragment.highlight-current-blue {
+.reveal .slides section .fragment.highlight-yellow,
+.reveal .slides section .fragment.highlight-current-blue,
+.reveal .slides section .fragment.highlight-current-yellow {
   opacity: 1;
   visibility: inherit; }
 
-.reveal .slides section .fragment.highlight-red.visible {
+.reveal .slides section .fragment.highlight-red.visible, .reveal .slides section .fragment.visible .highlight-red {
   color: #ff2c2d; }
 
-.reveal .slides section .fragment.highlight-green.visible {
+.reveal .slides section .fragment.highlight-green.visible, .reveal .slides section .fragment.visible .highlight-green {
   color: #17ff2e; }
 
-.reveal .slides section .fragment.highlight-blue.visible {
+.reveal .slides section .fragment.highlight-blue.visible, .reveal .slides section .fragment.visible .highlight-blue {
   color: #1b91ff; }
+
+.reveal .slides section .fragment.highlight-yellow.visible, .reveal .slides section .fragment.visible .highlight-yellow {
+  color: #ffaa10; }
 
 .reveal .slides section .fragment.highlight-current-red.current-fragment {
   color: #ff2c2d; }
