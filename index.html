@@ -525,6 +525,123 @@
         </section>
         <section>
             <section>
+                <h3 class="title">GIT CONFIG</h3>
+                <p>Ce qu'il faut savoir sur les réglages de git</p>
+            </section>
+            <section>
+                <p>Git est un outil puissant et très (trop?) complet, sa configuration l'est donc tout autant</p>
+                <p class="small fragment">La configuration de git est modifiable en ligne de commande ou directement dans le fichier <b>.gitconfig</b></p>
+                <pre>
+                    <code class="bash" data-trim>
+                        git config --global user.name "Antoine LEBEL"
+                        git config --global user.email antoine.lebel@example.fr
+                    </code>
+                </pre>
+                <p class="small">Exemple de configuration de l'auteur via CLI</p>
+            </section>
+            <section>
+                <p>Modification directe dans le <b>.gitconfig</b></p>
+                <pre>
+                    <code class="bash" data-trim>
+                        [http]
+                            proxy = http://localhost:3128
+                            sslverify = false
+                            postBuffer = 524288000
+                        [https]
+                            proxy = http://localhost:3128
+                        [url "https://"]
+                            insteadOf = git://
+                        [alias]
+                            tree = log --oneline --decorate --all --graph
+                            st = status
+                            ci = commit
+                            cia = commit --amend
+                            br = branch
+                            co = checkout
+                            pu = "!git push --set-upstream origin \"$(git rev-parse --abbrev-ref HEAD)\""
+                            puf = "!git push -f origin \"$(git rev-parse --abbrev-ref HEAD)\""
+                            rd = "!git rebase origin/develop"
+                        [user]
+                            name = Antoine LEBEL
+                            email = antoine.lebel@example.fr
+                            password = hehehe
+                        [color]
+                            ui = auto
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h4 class="title">GIT TREE ? Késako ?</h4>
+                <p class="small">Dans mon <b>.gitconfig</b>, j'ai créé un alias pour ne pas avoir à taper la commande log</p>
+                <pre>
+                    <code class="bash" data-trim>
+                        git log --oneline --decorate --all --graph # Trop long à taper ça
+                        git tree # Ah ça c'est pratique !
+                    </code>
+                </pre>
+                <div>
+                    <img src="img/tree-1.png" class=" fragment no-border" alt="">
+                    <img src="img/tree-2.png" class="fragment no-border" alt="">
+                </div>
+            </section>
+            <section>
+                <p>Pour des infos complètes sur le sujet, et les différentes options possibles, vous pouvez visiter la
+                    <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Configuration" target="_blank">documentation de la config</a>
+                </p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3 class="title">Les commandes pratiques en vrac!</h3>
+                <p>Parce qu'on a pas le temps de tout voir :(</p>
+            </section>
+            <section>
+                <h4 class="title">GIT REFLOG</h4>
+                <p class="small">Avec git, c'est très compliqué de perdre du travail car toutes vos actions sont enregistrées et annulables (ou presque)</p>
+                <p>C'est là qu'entre en jeu <b>git reflog</b></p>
+                <pre>
+                    <code class="bash" data-trim>
+                        1f64a9a (HEAD -> master, origin/master) HEAD@{0}: commit: toolbox
+                        b48f56d HEAD@{1}: rebase -i (abort): updating HEAD
+                        b48f56d HEAD@{2}: rebase: aborting
+                        b48f56d HEAD@{3}: commit: rebasing
+                        f1ff3bd HEAD@{4}: commit: repository
+                        d74d2be HEAD@{5}: commit: merge & conflict
+                        2bda618 HEAD@{6}: commit: feat: init slides
+                        34c9eb0 HEAD@{7}: commit (initial): Initial commit
+                    </code>
+                </pre>
+                <p class="small">On peut ainsi remonter dans notre historique et annuler une bêtise par exemple</p>
+            </section>
+            <section>
+                <h4 class="title">GIT Show</h4>
+                <p><b>git show</b> permet de voir les détails d'un commit, tout simplement</p>
+            </section>
+            <section>
+                <h4 class="title">GIT REVERT</h4>
+                <p><b>git revert</b> permet d'annuler un commit en créant un commit qui est l'opposé du commit revert</p>
+                <img src="img/revert.png" alt="" class="no-border">
+            </section>
+            <section>
+                <h4 class="title">GIT RESET</h4>
+                <p><b>git reset</b> permet également d'annuler un commit mais il réécrit l'histoire</p>
+                <img src="img/reset.png" alt="" class="no-border">
+            </section>
+            <section>
+                <p class="small">Il peut être lancé avec 3 modes: <b>--soft</b>, <b>--mixed</b> ou <b>--hard</b></p>
+                <img src="img/reset-2.png" alt="" class="no-border">
+            </section>
+            <section>
+                <p class="big">--soft</p>
+                <p class="small">L'option laisse l'index et le répertoire intact. Tous les changements entre HEAD et le commit spécifié sont ajouté à l'index.</p>
+                <p class="big">--mixed</p>
+                <p class="small">C'est l'option par défaut. L'option permet de réinitialiser l'index au commit spécifié, mais tout ce qui était dans l'index est déplacé dans le répertoire (modifié)</p>
+                <p class="big">--hard</p>
+                <p class="small">Option la plus dangereuse et pourtant la plus utilisée. L'index et le répertoire sont effacés pour correspondre au commit spécifié. Tout changement non commit est perdu. L'option favorite de Thanos.</p>
+            </section>
+        </section>
+        <section>
+            <section>
                 <h3 class="title">Boite à outils GIT</h3>
                 <p>Les petits trucs pratiques</p>
                 <img src="https://media.giphy.com/media/l4Jz3a8jO92crUlWM/giphy.gif" alt="" class="no-border">
@@ -532,7 +649,7 @@
             <section>
                 <h4 class="title">GITK</h4>
                 <p class="small">Afficher l'historique git en interface graphique</p>
-
+                <img src="img/gitk.png" alt="" class="no-border">
             </section>
         </section>
         <section>
