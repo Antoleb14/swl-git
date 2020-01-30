@@ -124,6 +124,32 @@
         </section>
         <section>
             <section>
+                <h3 class="title">Les commits</h3>
+                <p>Un commit est morceau du code de l'application</p>
+            </section>
+            <section>
+                <p>Un commit est identifié par un hash unique (gestion de l'intégrité)</p>
+                <span class="fragment highlight-red" data-fragment-index="0">24b9da655</span>2252987aa493b52f8696cd6d3b00373
+                <small class="fragment" data-fragment-index="0">Git raccourci régulièrement ce hash à 9 caractères pour faciliter la lecture</small>
+            </section>
+            <section>
+                Les commandes de manipulation d'un commit :
+                <pre>
+                    <code class="bash" data-trim data-noescape>
+                    git add [options...] [pathspec…​]
+
+                    # Utilisation classique pour ajouter tout ce qui est dans l'index
+                    git add -A
+
+                    # Créer le commit avec un message
+                    git commit -m "Message de commit"
+                    </code>
+                </pre>
+                <small>Le commit "Message de commit" est créé sur le repository local avec un nouveau hash unique</small>
+            </section>
+        </section>
+        <section>
+            <section>
                 <h3 class="title">Les branches</h3>
             </section>
             <section>
@@ -147,8 +173,10 @@
             </section>
             <section>
                 <h3 class="title">Comment Git sait-il où nous sommes actuellement?</h3>
-                <img src="img/branch-2.png" class="no-border" alt="">
-                <p class="small">Grâce au pointeur HEAD qui indique notre position, on remarque que créer une branche ne nous bascule pas automatiquement dessus</p>
+                <div class="fragment">
+                    <img src="img/branch-2.png" class="no-border" alt="">
+                    <p class="small">Grâce au pointeur <b>HEAD</b> qui indique notre position, on remarque que créer une branche ne nous bascule pas automatiquement dessus</p>
+                </div>
             </section>
             <section>
                 <p>Basculer sur notre branche fraichement créée</p>
@@ -221,7 +249,7 @@
                 <p class="small">Fusion à 3 sources</p>
             </section>
             <section>
-                <p class="small">Lorsque j'ajoute commit sur <b>master</b>, puis un commit sur <b>testing</b>, puis un nouveau commit sur master, je créé une "divergence".</p>
+                <p class="small">Lorsque j'ajoute un commit sur <b>testing</b>, puis un nouveau commit sur <b>master</b>, je créé une <b>divergence</b>.</p>
                 <img src="img/fusion-1.png" class="no-border" alt="">
             </section>
             <section>
@@ -267,6 +295,7 @@
                 <h3 class="title">Repository</h3>
                 GIT est un système distribué, il est donc utilisable en local et les modifications peuvent être publiées sur un serveur distant.
                 <p class="fragment">On nomme souvent le repo distant <b>origin</b></p>
+                <img src="img/repository-1.png" class="fragment no-border" alt="">
             </section>
             <section>
                 <h3 class="title">Initialiser un projet GIT from scratch</h3>
@@ -295,8 +324,9 @@
                     </code>
                 </pre>
                 <p class="small">
-                    La commande va récupérer le projet du repository distant et l'enregistrer sur l'ordinateur du client dans le dossier "mondossier"
+                    Git va récupérer l'historique du repository distant et l'enregistrer sur l'ordinateur du client dans le dossier "mondossier"
                 </p>
+                <p class="small fragment">Il va également créer une branche locale <b>master</b> au niveau de <b>origin/master</b></p>
             </section>
             <section>
                 <h3 class="title">Publier son code sur le repository distant</h3>
@@ -310,32 +340,48 @@
                     <br>
                     Sémantiquement cela veut dire : on <b>pousse</b> sur <b>origin</b> la <b>branche</b> voulue.
                 </p>
+                <pre class="fragment">
+                    <code class="bash" data-trim data-noescape>
+                        git push origin branche:feature-1
+                    </code>
+                </pre>
+                <p class="small fragment">Cette syntaxe permet de pousser la branche <b>branche</b> sous le nom <b>feature-1</b> sur le repository</p>
+            </section>
+            <section>
+                <h4 class="title">Le FETCH</h4>
+                <p class="small">Fetch est une commande pour récupérer une mise à jour des branches existantes sur le repository distant</p>
+                <pre>
+                    <code class="bash" data-trim data-noescape>
+                        git fetch
+                    </code>
+                </pre>
+                <p class="fragment small">Si votre branche distante est plus avancée que votre locale, il faut donc <b>fetch</b> puis <b>merge</b>, cette opération peut être réalisée avec une seule commande</p>
+                <pre class="fragment">
+                    <code class="bash" data-trim data-noescape>
+                        git pull
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h4 class="title">le Branch Tracking ?</h4>
+                <p>C'est le fait qu'une branche locale sache sur quelle branche distante pousser ses commits</p>
+                <p class="small fragment">Utilisation implicite, sauf en cas de branche au nommage différente entre le local et le distant</p>
+                <pre class="fragment">
+                    <code class="bash" data-trim data-noescape>
+                        git checkout -b feat origin/topfeature # Branche nommée différemment
+                        git branch -u origin/mabranche # Branche locale existante
+                    </code>
+                </pre>
             </section>
         </section>
         <section>
             <section>
-                <h3 class="title">Les commits</h3>
-                <p>Un commit est morceau du code de l'application</p>
-            </section>
-            <section>
-                <p>Un commit est identifié par un hash unique (gestion de l'intégrité)</p>
-                <span class="fragment highlight-red" data-fragment-index="0">24b9da655</span>2252987aa493b52f8696cd6d3b00373</code></pre>
-                <small class="fragment" data-fragment-index="0">Git raccourci régulièrement ce hash à 9 caractères pour faciliter la lecture</small>
-            </section>
-            <section>
-                Les commandes de manipulation d'un commit :
-                <pre>
-                    <code class="bash" data-trim data-noescape>
-                    git add [options...] [pathspec…​]
-
-                    # Utilisation classique pour ajouter tout ce qui est dans l'index
-                    git add -A
-
-                    # Créer le commit avec un message
-                    git commit -m "Message de commit"
-                    </code>
-                </pre>
-                <small>Le commit "Message de commit" est créé sur le repository local avec un nouveau hash unique</small>
+                <h4 class="title">Le Rebasing</h4>
+                <p class="small fragment">Pour intégrer les modifications d'une branche dans une autre, deux possibilités:</p>
+                <ul>
+                    <li class="fragment">Merge</li>
+                    <li class="fragment"><b>Rebase</b></li>
+                </ul>
             </section>
         </section>
         <section>
