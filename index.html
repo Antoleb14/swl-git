@@ -147,10 +147,22 @@
                 </pre>
                 <small>Le commit "Message de commit" est créé sur le repository local avec un nouveau hash unique</small>
             </section>
+            <section>
+                <h5 class="title">Commiter dans le commit précédent, c'est possible?</h5>
+                <p class="small">En cas d'erreur ou d'oubli dans un commit, vous pouvez modifier un fichier et le commiter directement dans le commit précédent</p>
+                <pre>
+                    <code class="bash" data-trim>
+                        git add -A
+                        git commit --amend
+                    </code>
+                </pre>
+                <p class="small">Le dernier commit est modifié pour y insérer vos changements indexés</p>
+            </section>
         </section>
         <section>
             <section>
                 <h3 class="title">Les branches</h3>
+                <img src="https://media.giphy.com/media/11qWN4GTZwMftu/giphy.gif" class="no-border" alt="">
             </section>
             <section>
                 <p>Tout arbre a des branches, alors pour git c'est pareil !</p>
@@ -376,11 +388,48 @@
         </section>
         <section>
             <section>
-                <h4 class="title">Le Rebasing</h4>
+                <h3 class="title">Le Rebasing</h3>
                 <p class="small fragment">Pour intégrer les modifications d'une branche dans une autre, deux possibilités:</p>
                 <ul>
                     <li class="fragment">Merge</li>
                     <li class="fragment"><b>Rebase</b></li>
+                </ul>
+            </section>
+            <section>
+                <img src="img/rebase-1.png" class="no-border" alt="">
+                <p class="">On rebase la branche <b>experiment</b> sur <b>master</b>, ainsi les commits seront rejoués sur la branche master</p>
+            </section>
+            <section>
+                 <pre class="">
+                    <code class="bash" data-trim data-noescape>
+                        git checkout experiment
+                        git rebase master
+                    </code>
+                </pre>
+                <img src="img/rebase-2.png" class="no-border" alt="">
+                <p class="">Un merge aurait réalisé une fusion à 3 sources, alors que le rebase nous permet une fusion <b>fast-forward</b></p>
+                <p class="small">Info importante: un rebase créé de nouveaux commits, il ne les déplace pas</p>
+            </section>
+            <section>
+                <h4 class="title">Rebase plus complexe</h4>
+                <p>Dans le cas d'une branche qui part d'une branche, il est possible de ne rebase qu'une partie de l'une sur la master.</p>
+                <img src="img/rebase-3.png" class="no-border" alt="">
+            </section>
+            <section>
+                <pre>
+                    <code class="bash" data-trim>
+                        git rebase --onto master serveur client
+                    </code>
+                </pre>
+                <p class="small">Git va ainsi rejouer les commits depuis l'ancêtre commun des branches <b>client</b> et <b>server</b> sur <b>master</b></p>
+                <img src="img/rebase-4.png" class="no-border" alt="">
+            </section>
+            <section>
+                <h4>Rebase intéractif</h4>
+                <p>Le rebase interactif est un outil puissant pour vous mettre de modifier l'historique des commits</p>
+                <p>Vous pourrez réaliser sur chaque commit une de ces opérations :</p>
+                <ul>
+                    <li>Renommer un commit</li>
                 </ul>
             </section>
         </section>
