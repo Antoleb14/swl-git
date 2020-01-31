@@ -377,7 +377,7 @@
             <section>
                 <h4 class="title">le Branch Tracking ?</h4>
                 <p>C'est le fait qu'une branche locale sache sur quelle branche distante pousser ses commits</p>
-                <p class="small fragment">Utilisation implicite, sauf en cas de branche au nommage différente entre le local et le distant</p>
+                <p class="small fragment">Utilisation implicite, sauf en cas de branche au nommage différent entre le local et le distant</p>
                 <pre class="fragment">
                     <code class="bash" data-trim data-noescape>
                         git checkout -b feat origin/topfeature # Branche nommée différemment
@@ -475,7 +475,7 @@
             </section>
             <section>
                 <p>Pour gérer ses mises en production, il est utile de créer et identifier une version d'un instantané git</p>
-                <p class="fragment">On utilise pour cela les tag</p>
+                <p class="fragment">On utilise pour cela les <b>tags</b></p>
             </section>
             <section>
                 <p class="big">
@@ -642,6 +642,73 @@
         </section>
         <section>
             <section>
+                <h3 class="title">Gérer son projet Git</h3>
+                <p>Un projet git avec plusieurs <b>contributeurs</b> ne s'invente pas et demande rigueur et bonnes pratiques</p>
+            </section>
+            <section>
+                <h4 class="title">GIT FLOW</h4>
+                <p>Gérer son projet au mieux avec Git Flow (créé par Vincent Driessen)</p>
+                <p class="fragment">Git flow permet une gestion de projet avec les branches et les fusions</p>
+                <p class="fragment">En pratique, il n'est pas parfait mais sert de <u>base</u></p>
+                <p class="small fragment">L'explication est <a href="https://danielkummer.github.io/git-flow-cheatsheet/index.fr_FR.html">dispo ici</a></p>
+            </section>
+            <section>
+                <img src="img/gitflow.png" class="no-border" alt="">
+            </section>
+            <section>
+                <h4 class="title">Les commits</h4>
+                <p class="small">Commiter souvent, <span class="fragment" data-fragment-index="0">perfectionner ensuite (rebase interactif)</span></p>
+                <p class="small fragment"  data-fragment-index="1">Un commit par fonctionnalité</span></p>
+                <p class="fragment small" data-fragment-index="2">Nommage de commit clair</p>
+                <pre class="fragment" data-fragment-index="2">
+                    <code class="bash" data-trim>
+                        # [STORY][TYPE]: [DESC]
+                        # STORY : identifiant de story (JIRA par exemple)
+                        # TYPE : wip, chore, docs, feat, fix, refactor, style, test, etc...
+                        # DESC : une description courte
+
+                        JIRA-145 fix: fix bug date de naissance
+                        JIRA-528 refacto: amélioration performance du calcul retraite
+                    </code>
+                </pre>
+
+                <p class="fragment small" data-fragment-index="3">Ne rebaser qu'en local <b class="fragment" data-fragment-index="4">et souvent</b></p>
+                <p class="fragment small">Ne pas commiter les fichiers générés (node_modules, builds, etc...)</p>
+            </section>
+            <section>
+                <h4 class="title">Les branches</h4>
+                <p>Une branche par fonctionnalité/story</p>
+                <p class="fragment">Un contributeur par branche évite les conflits</p>
+            </section>
+            <section>
+                <h4 class="title">Communiquer</h4>
+                <p>En cas de conflit de fusion/rebase ou problème, le silence est le meilleur moyen d'écraser du code qui ne vous appartient pas</p>
+            </section>
+            <section>
+                <h4 class="title">Gérer son gitignore</h4>
+                <p>Gitignore est un fichier à la base du projet <b>.gitignore</b></p>
+                <p class="fragment">Il permet d'ignorer des fichiers lors du commit</p>
+                <pre class="fragment">
+                    <code class="bash" data-trim>
+                        .idea/
+                        *.iml
+                        *.iws
+                        *.eml
+                        out/
+                        .DS_Store
+                        .svn
+                        log/*.log
+                        tmp/**
+                        node_modules/
+                        .sass-cache
+                        css/reveal.min.css
+                        js/reveal.min.js
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <section>
                 <h3 class="title">Boite à outils GIT</h3>
                 <p>Les petits trucs pratiques</p>
                 <img src="https://media.giphy.com/media/l4Jz3a8jO92crUlWM/giphy.gif" alt="" class="no-border">
@@ -660,12 +727,36 @@
                     </code>
                 </pre>
             </section>
+            <section>
+                <h4 class="title">Générer un .gitignore</h4>
+                <p>Vous pouvez générer un gitignore automatiquement avec toutes les technologies utilisées dans votre projet</p>
+                <a href="http://gitignore.io/" target="_blank">gitignore.io</a>
+            </section>
+            <section>
+                <h4 class="title">Un client git</h4>
+                <p>Vous pouvez utiliser un client graphique GIT qui gèrera tout pour vous et masquera les commandes</p>
+                <p>Ce n'est pas conseillé car limite et n'aide pas l'apprentissage</p>
+                <p class="fragment">Les clients les plus connus sont GitKraken ou Tortoise</p>
+                <p class="fragment">Certains IDE modernes embarquent aussi un client VCS (IntelliJ IDEA par exemple)</p>
+            </section>
+            <section>
+                <h4 class="title">Les hébergeurs git</h4>
+                <p>Plusieurs hébergeurs proposent des services gratuits d'hébergement de projets git</p>
+                <ul class="small">
+                    <li class="fragment">Github.com : le plus connu, Microsoft, gratuit mais payant projets privés</li>
+                    <li class="fragment">Gitlab.com : Excellent hébergeur, privé ou public, nombreuses fonctionnalités CI-CD</li>
+                    <li class="fragment">Bitbucket : Atlassian, payant selon nombre de contributeurs</li>
+                    <li class="fragment">Votre serveur privé, pourquoi pas !</li>
+                    <li class="fragment">Et bien d'autres...</li>
+                </ul>
+            </section>
         </section>
         <section>
-            <h4 class="title">PDF sur le fonctionnement de GIT par Scott Chacon</h4>
-            <a href="https://geekographie.maieul.net/IMG/pdf/progit.fr.pdf">Dispo ici !</a>
+            <h3 class="title">Sources de lecture GIT</h3>
+            <a href="https://git-scm.com/doc">Documentation GIT</a><br>
+            <a href="https://geekographie.maieul.net/IMG/pdf/progit.fr.pdf">PDF sur le fonctionnement de GIT par Scott Chacon</a><br>
+            <a href="https://danielkummer.github.io/git-flow-cheatsheet/index.fr_FR.html">Git flow cheatsheet</a><br>
         </section>
-
     </div>
 </div>
 
